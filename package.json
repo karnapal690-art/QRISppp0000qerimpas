@@ -1,1 +1,7 @@
-
+{
+  "name": "QRISppp0000qerimpas",
+  "version": "1.0.0",
+  "dependencies": {
+    "axios": "^1.6.2"
+  }
+}
