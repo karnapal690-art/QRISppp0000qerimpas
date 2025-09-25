@@ -73,57 +73,15 @@ document.getElementById('refund-amount').addEventListener('input', function() {
     formatCurrency(this);
 });
 
+// Event listener untuk format input saldo saat ini
+document.getElementById('current-balance').addEventListener('input', function() {
+    formatCurrency(this);
+});
+
 // Fungsi untuk mendapatkan nilai numerik dari input yang diformat
 function getNumericValue(formattedValue) {
     return parseInt(formattedValue.replace(/[^\d]/g, '') || '0');
 }
-
-// Saldo saat ini bisa diklik untuk edit
-let isEditingBalance = false;
-let currentBalance = 1250000;
-
-document.getElementById('balance-display').addEventListener('click', function() {
-    if (!isEditingBalance) {
-        // Masuk mode edit
-        isEditingBalance = true;
-        this.classList.add('editable');
-        document.getElementById('balance-amount').style.display = 'none';
-        document.getElementById('balance-input').style.display = 'block';
-        document.getElementById('balance-input').value = currentBalance.toLocaleString('id-ID');
-        document.getElementById('balance-input').focus();
-    }
-});
-
-// Event listener untuk input saldo
-document.getElementById('balance-input').addEventListener('input', function() {
-    formatCurrency(this);
-});
-
-// Event listener untuk ketika input saldo kehilangan fokus
-document.getElementById('balance-input').addEventListener('blur', function() {
-    if (isEditingBalance) {
-        // Keluar dari mode edit
-        isEditingBalance = false;
-        document.getElementById('balance-display').classList.remove('editable');
-        document.getElementById('balance-input').style.display = 'none';
-        
-        // Update saldo
-        const newBalance = getNumericValue(this.value);
-        if (newBalance > 0) {
-            currentBalance = newBalance;
-            document.getElementById('balance-amount').textContent = 'Rp ' + newBalance.toLocaleString('id-ID');
-        }
-        
-        document.getElementById('balance-amount').style.display = 'inline';
-    }
-});
-
-// Event listener untuk tombol Enter pada input saldo
-document.getElementById('balance-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        this.blur();
-    }
-});
 
 // Modal untuk gambar QRIS
 const qrisModal = document.getElementById('qrisModal');
@@ -176,9 +134,14 @@ function validatePaymentForm() {
 }
 
 function validateRefundForm() {
+    const currentBalance = getNumericValue(document.getElementById('current-balance').value);
     const amount = getNumericValue(document.getElementById('refund-amount').value);
     const name = document.getElementById('refund-name').value.trim();
     const method = document.getElementById('refund-method').value;
+    
+    if (currentBalance <= 0) {
+        return 'Harap masukkan saldo saat ini yang valid';
+    }
     
     if (amount <= 0) {
         return 'Harap masukkan jumlah pengembalian yang valid';
@@ -322,13 +285,13 @@ document.getElementById('process-refund').addEventListener('click', async functi
         // Kumpulkan data pengembalian
         const refundData = {
             type: 'refund',
+            currentBalance: getNumericValue(document.getElementById('current-balance').value),
             amount: getNumericValue(document.getElementById('refund-amount').value),
             name: document.getElementById('refund-name').value.trim(),
             method: document.getElementById('refund-method').value,
             bank: document.getElementById('recipient-bank').value.trim(),
             account: document.getElementById('recipient-account').value.trim(),
             accountName: document.getElementById('recipient-name').value.trim(),
-            currentBalance: currentBalance,
             timestamp: new Date().toISOString()
         };
 
@@ -337,11 +300,6 @@ document.getElementById('process-refund').addEventListener('click', async functi
         
         // Simulasi proses pengembalian (2 detik)
         await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        // Update saldo
-        const refundAmount = getNumericValue(document.getElementById('refund-amount').value);
-        currentBalance -= refundAmount;
-        document.getElementById('balance-amount').textContent = 'Rp ' + currentBalance.toLocaleString('id-ID');
         
         // Sembunyikan modal loading
         document.getElementById('loadingModal').style.display = 'none';
@@ -354,6 +312,7 @@ document.getElementById('process-refund').addEventListener('click', async functi
         // Reset form setelah 5 detik
         setTimeout(() => {
             successMessage.style.display = 'none';
+            document.getElementById('current-balance').value = '';
             document.getElementById('refund-amount').value = '';
             document.getElementById('refund-name').value = '';
             document.getElementById('refund-method').value = '';
@@ -375,9 +334,6 @@ document.getElementById('process-refund').addEventListener('click', async functi
 
 // Inisialisasi saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
-    // Format saldo saat ini
-    document.getElementById('balance-amount').textContent = 'Rp ' + currentBalance.toLocaleString('id-ID');
-    
     // Tambahkan event listener untuk menutup modal loading jika diklik di luar
     document.getElementById('loadingModal').addEventListener('click', function(e) {
         if (e.target === this) {
