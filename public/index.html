@@ -70,10 +70,11 @@
                 <div id="qris-info" class="payment-info" style="display: none;">
                     <div class="qris-container">
                         <div class="qris-status">QRIS AKTIF</div>
-                        <a href="https://website-tujuan-pembayaran.com" target="_blank">
+                        <a href="javascript:void(0);" class="qris-image-link">
                             <img src="https://i.ibb.co.com/HSSTLjx/1000001752.jpg" 
                                  alt="QR Code Standar Pembayaran Nasional" 
-                                 class="qris-image">
+                                 class="qris-image"
+                                 title="Klik untuk memperbesar">
                         </a>
                         <div class="qris-info">
                             <p><strong>QR Code Standar Pembayaran Nasional</strong></p>
@@ -165,7 +166,7 @@
         </div>
 
         <div class="footer">
-            &copy; 2025 MyTransaction. Semua hak dilindungi.
+            &copy; 2023 MyTransaction. Semua hak dilindungi.
         </div>
     </div>
 
@@ -178,6 +179,12 @@
         </div>
     </div>
 
+    <!-- Modal untuk gambar QRIS -->
+    <div class="qris-modal" id="qrisModal">
+        <span class="qris-modal-close" id="closeQrisModal">&times;</span>
+        <img class="qris-modal-content" id="qrisModalImage" src="https://i.ibb.co.com/HSSTLjx/1000001752.jpg" alt="QR Code Standar Pembayaran Nasional">
+    </div>
+
     <script src="script.js"></script>
 </body>
-  </html>
+        </html>
