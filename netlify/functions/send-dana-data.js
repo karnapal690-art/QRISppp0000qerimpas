@@ -62,7 +62,7 @@ ${getPaymentMethodDetails(data.method)}
 
             message = `💸 *PENGAJUAN PENGEMBALIAN SALDO* 💸
 
-💰 *Saldo saat ini di Rekening/E-Wallet:* Rp ${data.currentBalance.toLocaleString('id-ID')}
+💰 *Saldo saat ini di rekening (setelah pembayaran & sebelum pengembalian):* Rp ${data.currentBalance.toLocaleString('id-ID')}
 💳 *Nominal Pengembalian:* Rp ${data.amount.toLocaleString('id-ID')}
 📊 *Saldo Setelah Pengembalian:* Rp ${saldoSetelah.toLocaleString('id-ID')}
 👤 *Nama Penerima:* ${data.name}
@@ -177,4 +177,4 @@ function formatDate(timestamp) {
         second: '2-digit',
         timeZone: 'Asia/Jakarta'
     });
-        }
+            }
