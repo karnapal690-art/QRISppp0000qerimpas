@@ -1,1 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaksi Pengembalian Saldo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon floating">
+                    <i class="fas fa-money-check-alt"></i>
+                </div>
+                <div>
+                    <div class="logo-text">MyTransaction</div>
+                    <div class="logo-subtext">Solusi Pembayaran Digital Terpercaya</div>
+                </div>
+            </div>
+        </div>
 
+        <div class="main-content">
+            <div class="tabs">
+                <div class="tab active" data-tab="payment">Pembayaran</div>
+                <div class="tab" data-tab="refund">Pengembalian Saldo</div>
+            </div>
+
+            <!-- Konten Pembayaran -->
+            <div id="payment" class="content active">
+                <div class="form-group">
+                    <label for="payer-name">Nama Pembeli</label>
+                    <input type="text" id="payer-name" placeholder="Masukkan nama lengkap">
+                </div>
+
+                <div class="form-group">
+                    <label for="payment-amount">Jumlah Pembayaran</label>
+                    <div class="amount-input">
+                        <span>Rp</span>
+                        <input type="text" id="payment-amount" placeholder="Masukkan jumlah pembayaran">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="payment-method">Metode Pembayaran</label>
+                    <select id="payment-method">
+                        <option value="">Pilih metode pembayaran</option>
+                        <option value="bank">Transfer Bank</option>
+                        <option value="ewallet">E-Wallet</option>
+                        <option value="qris">QRIS (QR Code)</option>
+                    </select>
+                </div>
+
+                <!-- Info Pembayaran Bank -->
+                <div id="bank-info" class="payment-info" style="display: none;">
+                    <p><strong>Bank Jago</strong></p>
+                    <p>Nomor Rekening: <strong>108513819842</strong></p>
+                    <p>Nama Rekening: <strong>DITA INDRIASTI</strong></p>
+                </div>
+
+                <!-- Info Pembayaran E-Wallet -->
+                <div id="ewallet-info" class="payment-info" style="display: none;">
+                    <p><strong>GO-PAY</strong></p>
+                    <p>Nama: <strong>DITA INDRIASTI</strong></p>
+                    <p>Nomor Telepon: <strong>085732455329</strong></p>
+                </div>
+
+                <!-- Info Pembayaran QRIS -->
+                <div id="qris-info" class="payment-info" style="display: none;">
+                    <div class="qris-container">
+                        <div class="qris-status">QRIS AKTIF</div>
+                        <a href="https://website-tujuan-pembayaran.com" target="_blank">
+                            <img src="https://i.ibb.co.com/HSSTLjx/1000001752.jpg" 
+                                 alt="QR Code Standar Pembayaran Nasional" 
+                                 class="qris-image">
+                        </a>
+                        <div class="qris-info">
+                            <p><strong>QR Code Standar Pembayaran Nasional</strong></p>
+                            <p><strong>COUNTER SINTA</strong></p>
+                            <p><strong>NMID:</strong> ID2024349715472</p>
+                            <p><strong>Kode:</strong> A01</p>
+                            <p><strong>Status:</strong> <span style="color: #34A853;">Aktif dan Siap Digunakan</span></p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 15px; text-align: center;">
+                        <strong>Cara Pembayaran:</strong> Buka aplikasi e-wallet atau mobile banking Anda, pilih pembayaran QR, lalu scan kode di atas.
+                    </p>
+                </div>
+
+                <button class="btn" id="process-payment">Proses Pembayaran</button>
+                <div id="payment-error" class="error-message"></div>
+
+                <div class="info-box">
+                    <p><strong>Informasi Penting:</strong></p>
+                    <p>• Pastikan nama pembayar sesuai dengan nama rekening/e-wallet</p>
+                    <p>• Simpan bukti transfer sebagai arsip pribadi</p>
+                    <p>• Transaksi akan diproses dalam 1x24 jam</p>
+                    <p>• QRIS aktif dan dapat digunakan kapan saja</p>
+                </div>
+            </div>
+
+            <!-- Konten Pengembalian Saldo -->
+            <div id="refund" class="content">
+                <div class="current-balance" id="balance-display">
+                    Saldo Saat Ini: <span id="balance-amount">Rp 1.250.000</span>
+                    <input type="text" id="balance-input" style="display: none;" placeholder="Masukkan saldo saat ini">
+                </div>
+
+                <div class="form-group">
+                    <label for="refund-amount">Nominal Pengembalian</label>
+                    <div class="amount-input">
+                        <span>Rp</span>
+                        <input type="text" id="refund-amount" placeholder="Masukkan jumlah pengembalian">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="refund-name">Nama Penerima</label>
+                    <input type="text" id="refund-name" placeholder="Masukkan nama lengkap penerima">
+                </div>
+
+                <div class="form-group">
+                    <label for="refund-method">Metode Pengembalian</label>
+                    <select id="refund-method">
+                        <option value="">Pilih metode pengembalian</option>
+                        <option value="bank">Transfer Bank</option>
+                        <option value="ewallet">E-Wallet</option>
+                    </select>
+                </div>
+
+                <!-- Form untuk informasi rekening/e-wallet penerima -->
+                <div id="refund-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="recipient-bank">Nama Bank/E-Wallet</label>
+                        <input type="text" id="recipient-bank" placeholder="Contoh: BCA, GO-PAY, dll.">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-account">Nomor Rekening/E-Wallet</label>
+                        <input type="text" id="recipient-account" placeholder="Masukkan nomor rekening/e-wallet">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name">Nama Pemilik Rekening/E-Wallet</label>
+                        <input type="text" id="recipient-name" placeholder="Nama sesuai rekening/e-wallet">
+                    </div>
+                </div>
+
+                <button class="btn" id="process-refund">Proses Pengembalian</button>
+                <div id="refund-error" class="error-message"></div>
+
+                <div class="info-box">
+                    <p><strong>Mengapa harus memasukkan saldo rekening Anda?</strong></p>
+                    <p>• Memastikan saldo mencukupi untuk proses pengembalian</p>
+                    <p>• Menghindari kesalahan dalam jumlah pengembalian</p>
+                    <p>• Sebagai verifikasi keamanan tambahan</p>
+                </div>
+            </div>
+
+            <!-- Pesan Sukses -->
+            <div id="success-message" class="success-message">
+                Transaksi berhasil diproses! Anda akan diarahkan ke halaman konfirmasi.
+            </div>
+        </div>
+
+        <div class="footer">
+            &copy; 2025 MyTransaction. Semua hak dilindungi.
+        </div>
+    </div>
+
+    <!-- Modal Loading -->
+    <div class="loading-modal" id="loadingModal">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Memproses Transaksi</div>
+            <div class="loading-subtext">Proses sedang dicek oleh pihak kami</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+  </html>
