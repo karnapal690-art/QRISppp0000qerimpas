@@ -1,7 +1,15 @@
 {
-  "name": "QRISppp0000qerimpas",
+  "name": "telegram-bot-function",
   "version": "1.0.0",
+  "description": "Netlify Function untuk mengirim notifikasi ke Telegram",
+  "main": "send-dana-data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
-    "axios": "^1.6.2"
+    "telegraf": "^4.15.3"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
