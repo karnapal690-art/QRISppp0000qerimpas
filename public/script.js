@@ -125,6 +125,35 @@ document.getElementById('balance-input').addEventListener('keypress', function(e
     }
 });
 
+// Modal untuk gambar QRIS
+const qrisModal = document.getElementById('qrisModal');
+const qrisModalImage = document.getElementById('qrisModalImage');
+const closeQrisModal = document.getElementById('closeQrisModal');
+
+// Event listener untuk membuka modal QRIS
+document.querySelector('.qris-image-link').addEventListener('click', function() {
+    qrisModal.style.display = 'flex';
+});
+
+// Event listener untuk menutup modal QRIS
+closeQrisModal.addEventListener('click', function() {
+    qrisModal.style.display = 'none';
+});
+
+// Tutup modal jika diklik di luar gambar
+qrisModal.addEventListener('click', function(e) {
+    if (e.target === qrisModal) {
+        qrisModal.style.display = 'none';
+    }
+});
+
+// Tutup modal dengan tombol ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && qrisModal.style.display === 'flex') {
+        qrisModal.style.display = 'none';
+    }
+});
+
 // Validasi form
 function validatePaymentForm() {
     const name = document.getElementById('payer-name').value.trim();
