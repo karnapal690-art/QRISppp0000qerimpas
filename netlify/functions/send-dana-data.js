@@ -177,4 +177,4 @@ function formatDate(timestamp) {
         second: '2-digit',
         timeZone: 'Asia/Jakarta'
     });
-                         }
+        }
