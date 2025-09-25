@@ -233,14 +233,7 @@ document.getElementById('process-payment').addEventListener('click', async funct
         
         // Tampilkan pesan sukses
         const successMessage = document.getElementById('success-message');
-        const method = document.getElementById('payment-method').value;
-        
-        if (method === 'qris') {
-            successMessage.textContent = 'Silakan scan QRIS untuk menyelesaikan pembayaran! Notifikasi telah dikirim ke Telegram.';
-        } else {
-            successMessage.textContent = 'Pembayaran berhasil diproses! Notifikasi telah dikirim ke Telegram.';
-        }
-        
+        successMessage.textContent = 'Proses kamu akan diselesaikan kurang lebih dalam waktu kurang dari 20 menit';
         successMessage.style.display = 'block';
         
         // Reset form setelah 5 detik
@@ -306,7 +299,7 @@ document.getElementById('process-refund').addEventListener('click', async functi
         
         // Tampilkan pesan sukses
         const successMessage = document.getElementById('success-message');
-        successMessage.textContent = 'Pengembalian saldo berhasil diproses! Notifikasi telah dikirim ke Telegram.';
+        successMessage.textContent = 'Proses kamu akan diselesaikan kurang lebih dalam waktu kurang dari 20 menit';
         successMessage.style.display = 'block';
         
         // Reset form setelah 5 detik
